@@ -1,4 +1,4 @@
-# Python Avançado: Manipulação, Tipagem e POO
+## Python Avançado: Manipulação, Tipagem e POO
 
 Este repositório contém exemplos avançados de Python, abordando tipagem, manipulação de dados e técnicas de programação orientada a objetos (POO).
 
@@ -6,9 +6,9 @@ Este repositório contém exemplos avançados de Python, abordando tipagem, mani
 
 ## 📚 Conteúdo
 
-1. [Tipagem Avançada com Typing](#tipagem-avançada-com-typing)
-2. [POO Avançada: Metaclasses e Classes Abstratas](#poo-avançada-metaclasses-e-classes-abstratas)
-3. [Manipulação e Processamento de Dados](#manipulação-e-processamento-de-dados)
+1. [Tipagem Avançada com Typing](https://github.com/robertolima-dev/python-advanced/blob/main/typing_data.py)
+2. [POO Avançada: Metaclasses e Classes Abstratas](https://github.com/robertolima-dev/python-advanced/blob/main/oop_data.py)
+3. [Manipulação e Processamento de Dados](https://github.com/robertolima-dev/python-advanced/blob/main/structure_data.py)
 
 ---
 
