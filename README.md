@@ -1,26 +1,126 @@
-## Manipulação e Processamento de Dados em Python
+# Python Avançado: Manipulação, Tipagem e POO
 
-Este repositório contém exemplos e práticas sobre manipulação e processamento de dados em Python, abordando conceitos avançados e boas práticas para tornar o código eficiente e escalável.
-
----
-
-### 📚 Conteúdo
-
-1. [Processamento Assíncrono](#processamento-assíncrono)
-2. [Manipulação de Arquivos e Streams](#manipulação-de-arquivos-e-streams)
-3. [Data Science com Python](#data-science-com-python)
+Este repositório contém exemplos avançados de Python, abordando tipagem, manipulação de dados e técnicas de programação orientada a objetos (POO).
 
 ---
 
-### 🚀 1. Processamento Assíncrono
+## 📚 Conteúdo
 
-O processamento assíncrono permite que tarefas que envolvem operações de I/O sejam realizadas de forma não bloqueante. Isso significa que o programa pode executar várias operações ao mesmo tempo, melhorando o desempenho e a eficiência.
+1. [Tipagem Avançada com Typing](#tipagem-avançada-com-typing)
+2. [POO Avançada: Metaclasses e Classes Abstratas](#poo-avançada-metaclasses-e-classes-abstratas)
+3. [Manipulação e Processamento de Dados](#manipulação-e-processamento-de-dados)
 
-#### ✅ Tecnologias Utilizadas
-- `asyncio` - Para execução assíncrona de funções.
-- `aiohttp` - Para requisições HTTP assíncronas.
+---
 
-#### 🔧 Exemplo Básico:
+### 🔠 1. Tipagem Avançada com Typing
+
+O uso de tipagem estática em Python aumenta a legibilidade e ajuda a evitar erros. A partir do Python 3.5, a biblioteca `typing` fornece recursos robustos para definir tipos de maneira clara.
+
+#### ✅ Principais Recursos:
+- `List`, `Dict`, `Tuple`, `Set`: Para tipos de coleção.
+- `Optional`, `Union`: Para valores opcionais.
+- `Callable`, `Any`: Para funções e tipos genéricos.
+
+#### 💡 Exemplos:
+
+**Função com Tipagem:**
+```python
+from typing import List, Dict, Optional
+
+def process_data(data: List[int], factor: int) -> Dict[str, Optional[float]]:
+    result = sum(data) * factor
+    return {"total": result if result > 0 else None}
+
+print(process_data([1, 2, 3], 10))  # {'total': 60}
+````
+
+**Uso de Tipos Genéricos:**
+
+```python
+from typing import TypeVar, List
+
+T = TypeVar('T')
+
+def reverse_list(items: List[T]) -> List[T]:
+    return items[::-1]
+
+print(reverse_list([1, 2, 3]))  # [3, 2, 1]
+```
+
+#### 💡 Vantagens:
+
+* Facilita a compreensão do código.
+* Melhora a verificação estática com ferramentas como `mypy`.
+
+---
+
+### 🏛️ 2. POO Avançada: Metaclasses e Classes Abstratas
+
+Em Python, podemos utilizar metaclasses e classes abstratas para criar estruturas flexíveis e reutilizáveis, especialmente em arquiteturas mais complexas.
+
+#### 🛠️ Metaclasses:
+
+As metaclasses controlam a criação de classes, permitindo modificar o comportamento das classes no momento de sua definição.
+
+**Exemplo de Metaclasse Singleton:**
+
+```python
+class SingletonMeta(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+class Logger(metaclass=SingletonMeta):
+    def log(self, message: str):
+        print(f"[LOG] {message}")
+
+logger1 = Logger()
+logger2 = Logger()
+print(logger1 is logger2)  # True
+```
+
+#### 📝 Classes Abstratas:
+
+Classes abstratas servem como modelos para outras classes, garantindo que métodos essenciais sejam implementados.
+
+**Exemplo de Classe Abstrata:**
+
+```python
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    @abstractmethod
+    def make_sound(self) -> str:
+        pass
+
+class Dog(Animal):
+    def make_sound(self) -> str:
+        return "Woof!"
+
+dog = Dog()
+print(dog.make_sound())  # Woof!
+```
+
+#### 💡 Vantagens:
+
+* Organização de código com responsabilidades bem definidas.
+* Garantia de implementação de métodos essenciais.
+
+---
+
+### 📂 3. Manipulação e Processamento de Dados
+
+Este módulo foca na manipulação eficiente de dados, utilizando bibliotecas para processamento assíncrono e leitura de arquivos.
+
+#### 🚀 Processamento Assíncrono
+
+Utilizamos o módulo `asyncio` para lidar com tarefas não bloqueantes, melhorando o desempenho em operações de I/O.
+
+**Exemplo:**
 
 ```python
 import asyncio
@@ -30,48 +130,14 @@ async def say_hello():
     await asyncio.sleep(2)
     print("Adeus!")
 
-async def main():
-    await say_hello()
-
-asyncio.run(main())
-````
-
-#### 📥 Instalação do aiohttp:
-
-Para utilizar o `aiohttp`, execute:
-
-```bash
-pip install aiohttp
+asyncio.run(say_hello())
 ```
 
-#### 💡 Benefícios:
+#### 📄 Manipulação de Arquivos
 
-* Redução de tempo de espera em operações I/O.
-* Execução paralela sem utilizar threads.
+Manipulação de dados utilizando Pandas e leitura de arquivos CSV.
 
----
-
-### 📂 2. Manipulação de Arquivos e Streams
-
-A manipulação de arquivos em Python é essencial para lidar com dados de entrada e saída de maneira eficiente. Utilizamos diferentes métodos para ler, escrever e compactar arquivos.
-
-#### ✅ Principais Tecnologias:
-
-* Arquivos de Texto e Binários
-* Arquivos CSV (Pandas)
-* Arquivos ZIP (zipfile)
-
-#### 🔧 Exemplos:
-
-**Leitura de Arquivos de Texto:**
-
-```python
-with open("dados.txt", "r") as f:
-    content = f.read()
-    print(content)
-```
-
-**Leitura de CSV com Pandas:**
+**Exemplo:**
 
 ```python
 import pandas as pd
@@ -80,44 +146,11 @@ df = pd.read_csv("data.csv")
 print(df.head())
 ```
 
-**Compactação com ZIP:**
+#### 📊 Data Science com Pandas
 
-```python
-import zipfile
+Processamento e visualização de dados com Pandas e Matplotlib.
 
-with zipfile.ZipFile("arquivo.zip", "w") as zipf:
-    zipf.write("dados.txt")
-```
-
-#### 💡 Benefícios:
-
-* Armazenamento e organização eficientes.
-* Manipulação rápida de grandes volumes de dados.
-
----
-
-### 📊 3. Data Science com Python
-
-O Python é amplamente utilizado em ciência de dados devido às suas poderosas bibliotecas para análise e visualização.
-
-#### ✅ Tecnologias Utilizadas:
-
-* `Pandas` - Manipulação e análise de dados.
-* `NumPy` - Computação numérica eficiente.
-* `Matplotlib` - Visualização de dados.
-
-#### 🔧 Exemplos:
-
-**Análise de Dados com Pandas:**
-
-```python
-import pandas as pd
-
-df = pd.read_csv("https://people.sc.fsu.edu/~jburkardt/data/csv/airtravel.csv")
-print(df.describe())  # Estatísticas básicas
-```
-
-**Gráfico Simples com Matplotlib:**
+**Exemplo:**
 
 ```python
 import matplotlib.pyplot as plt
@@ -127,23 +160,16 @@ y = [10, 20, 15, 25]
 
 plt.plot(x, y, marker='o')
 plt.title("Gráfico de Exemplo")
-plt.xlabel("Eixo X")
-plt.ylabel("Eixo Y")
 plt.show()
 ```
-
-#### 💡 Benefícios:
-
-* Análise e visualização rápida de grandes volumes de dados.
-* Geração de insights e relatórios visuais.
 
 ---
 
 ### 📝 Desafio Prático:
 
-1. Utilizando **asyncio** e **aiohttp**, faça o download simultâneo de três arquivos CSV.
-2. Leia os arquivos com **Pandas** e calcule a média dos valores.
-3. Plote um gráfico de barras com as médias calculadas usando **Matplotlib**.
+1. Utilize **typing** para criar uma função que retorne a média de uma lista de números.
+2. Crie uma **classe abstrata** para representar uma Conta Bancária e implemente as subclasses para **Conta Corrente** e **Conta Poupança**.
+3. Faça um programa assíncrono que faça requisições simultâneas para diferentes APIs.
 
 ---
 
